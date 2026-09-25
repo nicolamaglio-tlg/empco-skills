@@ -42,6 +42,8 @@ Read `references/empco-screening.md` for the rubric. Then read the content yours
 
 Quote text exactly, in its original language, with a translation if useful.
 
+Section intros and framing sentences are candidates too. "Moving towards recycled materials helps us lower the carbon footprint of our products" reads like a lead-in to the figures below it, but it makes its own causal, whole-product claim. Assess it; don't file it as framing.
+
 **B. Assessment** of every item that could plausibly be an environmental or social claim — explicit or implied benefit, characteristic, superiority, target, label, certification, or impact. For each:
 
 - exact wording (or a precise description, for a visual);
@@ -52,6 +54,8 @@ Quote text exactly, in its original language, with a translation if useful.
 - missing information — phrased as absence of evidence in what you reviewed, never as evidence of absence;
 - recommended next action;
 - confidence, and whether human review is required.
+
+Give every medium- or high-priority claim its own row. Low-priority items that are specific, scoped, and factual in the same way (a list of dated pilots, named partnerships, certified-material percentages) can share one row, as long as each is still quoted.
 
 If nothing qualifies as a claim, say so plainly and show what you checked and ruled out (a colorway called "Forest Green", a material fact with no environmental benefit attached). A clean result is a valid result, not a reason to stretch for findings.
 

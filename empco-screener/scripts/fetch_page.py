@@ -74,7 +74,13 @@ def fetch(url: str, retries: int = 4) -> dict:
             with urllib.request.urlopen(req, timeout=120) as r:
                 body = json.loads(r.read().decode())
             data = body.get("data", body)
-            return {"url": url, "title": data.get("metadata", {}).get("title"), "markdown": data.get("markdown", "")}
+            meta = data.get("metadata", {})
+            return {
+                "url": url,
+                "title": meta.get("title"),
+                "description": meta.get("description") or meta.get("ogDescription"),
+                "markdown": data.get("markdown", ""),
+            }
         except urllib.error.HTTPError as e:
             last_err = f"HTTP {e.code}: {e.read().decode(errors='replace')[:300]}"
             # 429 = rate limit, 5xx = Firecrawl-side proxy fault. Both are transient; back off and retry.
@@ -83,6 +89,16 @@ def fetch(url: str, retries: int = 4) -> dict:
                 continue
             raise RuntimeError(last_err) from e
     raise RuntimeError(f"Gave up after {retries} attempts. Last error: {last_err}")
+
+
+def render(result: dict) -> str:
+    """Page metadata first — the meta description often carries claims but isn't in the Markdown body."""
+    header = [f"URL: {result['url']}"]
+    if result.get("title"):
+        header.append(f"Page title: {result['title']}")
+    if result.get("description"):
+        header.append(f"Meta description: {result['description']}")
+    return "\n".join(header) + "\n\n---\n\n" + result["markdown"]
 
 
 def main() -> int:
@@ -110,11 +126,12 @@ def main() -> int:
     except Exception as exc:
         print(f"Fetch failed: {exc}", file=sys.stderr)
         return 1
+    text = render(result)
     if args.output:
-        Path(args.output).write_text(result["markdown"], encoding="utf-8")
-        print(f"Saved {len(result['markdown'])} chars of Markdown to {args.output} (title: {result['title']!r})", file=sys.stderr)
+        Path(args.output).write_text(text, encoding="utf-8")
+        print(f"Saved {len(text)} chars to {args.output} (title: {result['title']!r})", file=sys.stderr)
     else:
-        print(result["markdown"])
+        print(text)
     return 0
 
 

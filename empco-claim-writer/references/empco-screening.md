@@ -8,6 +8,8 @@ Operational screening only. Directive (EU) 2024/825 ("EmpCo") amends the Unfair 
 
 - **Environmental claim:** any message or representation, in any form (text, image, graphic, symbol, label, brand or company name, product name), that states or implies a product, category, brand, or trader has a positive or zero environmental impact, less impact than others, or has improved its impact over time.
 - **Generic environmental claim:** an environmental claim whose specification isn't given in clear and prominent terms on the same medium. Typical examples: "environmentally friendly", "eco-friendly", "green", "nature's friend", "ecological", "climate friendly", "gentle on the environment", "carbon friendly", "biodegradable" (unqualified).
+  - *Specification has to be close.* Treat a generic claim as specified only if the specification sits next to it or is explicitly linked from it (a footnote marker, "see how", a link on the claim itself). Figures elsewhere on the page, under other headings, don't cure it.
+  - *Generic claim vs. vague process language.* The prohibited pattern (point 4a below) is about claims of environmental excellence for a product, brand, or business — "eco-friendly", "green", "sustainable", "climate friendly". Descriptions of what a business does or is working on — "we manage chemicals carefully", "we work to reduce our water footprint" — are not generic claims in that sense. If they're vague, treat them as context-dependent (substantiation, scope), usually medium priority. A textbook generic term should never rank below vague process language on the same page.
 - **Recognised excellent environmental performance:** performance in line with the EU Ecolabel, an officially recognised EN ISO 14024 type I ecolabel scheme in the member state, or top environmental performance under applicable Union law.
 - **Sustainability label:** a voluntary trust mark, quality mark, or equivalent, public or private, that sets apart or promotes a product, process, or business by reference to its environmental or social characteristics. Mandatory labels are excluded.
 - **Certification scheme:** third-party verification with requirements that are publicly available, developed with relevant stakeholders, non-discriminatory, and monitored independently of the scheme owner and the trader.
@@ -33,6 +35,10 @@ Flag these as high priority for review:
 - **Evidence-scope mismatch** — the claim is broader than what's measured.
 - **Missing prominent qualifications** — the qualification exists but doesn't travel with the claim.
 - **Causation and product linkage** — outcomes attributed to the product or the business without evidence of the causal link.
+
+## Mandatory information
+
+Information the law requires — packaging disposal and sorting instructions, recycling codes, energy labels, material composition labels — is not a claim in itself. Note it and rule it out. It becomes a potential prohibited pattern only when it's presented as a distinctive benefit of this offer (point 10a above), for example "our packaging comes with recycling instructions" as a selling point.
 
 ## Insufficient information
 

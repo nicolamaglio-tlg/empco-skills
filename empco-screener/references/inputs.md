@@ -18,13 +18,19 @@ If a Firecrawl MCP connection is available instead, use its scrape tool for the 
 python3 scripts/fetch_page.py "https://example.com/page" --output page.md
 ```
 
-This makes exactly one Firecrawl request and writes the page's Markdown to `page.md`. It retries automatically on rate limits (429) and Firecrawl-side errors (5xx), which are transient. Any other error: stop and report it, don't retry.
+This makes exactly one Firecrawl request and writes the page to `page.md`: a short header with the URL, page title, and meta description, then the page's Markdown. The meta description is page copy search results and social previews show — screen it like any other text. It retries automatically on rate limits (429) and Firecrawl-side errors (5xx), which are transient. Any other error: stop and report it, don't retry.
 
 **Bot protection.** A 403, or a "security issue identified"/bot-detection page instead of real content, means the site's WAF (Akamai Bot Manager, Cloudflare Bot Fight Mode, etc.) blocked the fetch — this can happen even to the site's owner. Report it. Do not try to route around it. The fix on the owner's side is allowlisting Firecrawl; the fix right now is the alternatives below.
 
 **Alternatives when the page can't be fetched** — no key, a block, or an environment where the script can't run or reach the network: ask the user to save the page as a PDF, upload screenshots, or paste the copy, and continue with that input type. Screenshots have a bonus: they let you review the imagery too.
 
 **What a fetch covers.** Markdown captures text and image alt text, not the images themselves. Say that imagery wasn't reviewed unless the user also provides screenshots.
+
+**Fetch artifacts.**
+
+- *Repeated blocks.* Carousels and sliders often come through as the same block several times, word for word. Treat it as one item and note the duplication once in Limitations.
+- *Footnotes and tooltips.* Markers like `*` or `+` whose text never appears usually point to content shown on hover or click, which a fetch can't capture. Don't assume the footnote says nothing: record it as missing information on the claim it qualifies, and suggest the user screenshot it if the claim is medium or high priority.
+- *Unrelated fragments* (blocked-tracker messages, cookie banners): ignore them and note them in Limitations.
 
 ## Text
 

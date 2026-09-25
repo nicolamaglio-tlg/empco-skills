@@ -73,6 +73,16 @@ def test_retries_on_429_then_succeeds():
     assert result["title"] == "Hello"
 
 
+def test_render_includes_meta_description():
+    body = json.dumps({"data": {"markdown": "# Body", "metadata": {"title": "T", "description": "We are shifting our business."}}}).encode()
+    with mock.patch.dict(os.environ, {"FIRECRAWL_API_KEY": "test-key"}), \
+         mock.patch.object(fetch_page.urllib.request, "urlopen", lambda req, timeout=120: io.BytesIO(body)):
+        text = fetch_page.render(fetch_page.fetch("https://example.com/page"))
+    assert "Meta description: We are shifting our business." in text
+    assert "Page title: T" in text
+    assert text.rstrip().endswith("# Body")
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_") and callable(fn):
