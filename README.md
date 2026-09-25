@@ -1,5 +1,7 @@
 # EmpCo Skills
 
+<img width="1600" height="900" alt="empco-skills-cover" src="https://github.com/user-attachments/assets/75d6725f-6749-4cf9-953b-b0495f6cb954" />
+
 Free [Agent Skills](https://agentskills.io) from The Landbanking Group for teams shipping product, marketing, and campaign copy under the EU's Empowering Consumers ("EmpCo") rules, which apply from **27 September 2026**. Find the risky environmental and social claims in a page, a PDF, or an ad — then turn them, or anything you'd like to say, into lower-risk directions with the evidence each one needs. Built for marketers, legal and compliance reviewers, and founders who want a fast first pass before copy ships, or before it goes to real legal review.
 
 Works with Claude Code, Claude.ai (Customize → Skills), and any other agent that reads the Agent Skills format.
