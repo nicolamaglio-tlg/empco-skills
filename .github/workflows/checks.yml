@@ -1,0 +1,19 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Shared references in sync
+        run: python3 scripts/sync_shared.py --check
+      - name: Screener fetch tests
+        run: python3 empco-screener/tests/test_fetch_page.py

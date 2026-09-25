@@ -1,15 +1,15 @@
 ---
-name: empco-claims
-description: Screen environmental and social claims for greenwashing risk under the EU EmpCo framework (Empowering Consumers Directive 2024/825), and rewrite flagged claims into safer alternatives. Use for any green-claim or sustainability-claim check, whatever the format — a live webpage URL, pasted copy or a single claim, a PDF (report, brochure, packaging artwork), an ad or social post (image or text), or a draft before publication. Also use when the user mentions greenwashing, eco-claims, "carbon neutral", "sustainable", "eco-friendly", sustainability labels, or asks how to reword a claim so it holds up.
+name: empco-screener
+description: Find and risk-classify the environmental and social claims in existing material under the EU EmpCo framework (Empowering Consumers Directive 2024/825), producing a claims register. Use to check, audit, or review anything for greenwashing risk, whatever the format — a live webpage URL, a PDF (report, brochure, packaging artwork), an ad or social post (image or text), pasted copy, or a draft before publication. Also use when the user asks whether something is greenwashing or "OK under EmpCo". To draft new claims or rework flagged ones, use empco-claim-writer instead.
 compatibility: No setup for text, PDF, or image input. Live webpage input needs a free Firecrawl API key (FIRECRAWL_API_KEY) or a Firecrawl MCP connection.
 metadata:
   author: The Landbanking Group
   version: "1.0.0"
 ---
 
-# EmpCo claims
+# EmpCo screener
 
-Risk-screen environmental and social claims under the EU EmpCo framework, whatever form they arrive in, and help rewrite the ones that get flagged. This is risk screening, not legal advice or legal clearance — say so in every output.
+Find the environmental and social claims in whatever the user hands over, and risk-classify each one under the EU EmpCo framework. This is risk screening, not legal advice or legal clearance — say so in every output.
 
 ## 1. Identify the input and confirm scope
 
@@ -27,7 +27,6 @@ Before doing anything that costs time or credits, confirm:
 
 1. **The exact item.** One URL per run. For long PDFs, which pages or sections.
 2. **The audience.** Default to EU consumers. EmpCo governs business-to-consumer communication; if the material looks investor- or B2B-facing, say so rather than assuming it's in scope.
-3. **What they want.** Screening (the default), rewrites, or both.
 
 If the user pastes a single claim and asks a direct question, skip the confirmation and answer.
 
@@ -71,6 +70,6 @@ Use `assets/report-template.md`, choosing the form by size:
 
 Always state what the input was, how it was read, any failures or retries, and what was not reviewed (imagery on a text-only fetch, pages outside the confirmed range, other locales). Don't imply full coverage.
 
-## 5. Rewrite
+## 5. Next step
 
-If the user asked for rewrites — or after a screening that flagged anything, as an offer — follow `references/rewrite.md`.
+Don't rewrite claims here. If anything was flagged, offer lower-risk directions and the evidence each needs, using the `empco-claim-writer` skill. If it isn't installed, mention that it's available from the same repository as this one.

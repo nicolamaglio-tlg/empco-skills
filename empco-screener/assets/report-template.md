@@ -16,7 +16,7 @@ Pick the form by size: **quick check** for a single claim or a short ad/post, **
 **What would change this:** the context or evidence that would lower (or raise) the risk.
 **Next action:** …
 
-Offer rewrites if flagged.
+If flagged, offer lower-risk directions via empco-claim-writer.
 
 ---
 
