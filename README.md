@@ -123,7 +123,7 @@ Every result says what was actually reviewed, and nothing is ever labeled "compl
 
 ## Need more?
 
-Want a full multi-page audit, measured evidence behind your nature claims, or an actual legal sign-off? Talk to The Landbanking Group — *[add your contact/landing-page link here before publishing]*.
+Want a full multi-page audit, measured evidence behind your nature claims, or an actual legal sign-off? Talk to The Landbanking Group — https://www.thelandbankinggroup.com/contact
 
 ## Contributing
 
