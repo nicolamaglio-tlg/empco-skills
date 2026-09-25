@@ -7,14 +7,14 @@ Only **live webpage** input needs Firecrawl.
 ## Firecrawl (webpages only)
 
 1. Get a free API key at https://www.firecrawl.dev/app/api-keys — no credit card, 1,000 credits/month on the free plan. Each page fetched uses one credit.
-2. Store it privately as `FIRECRAWL_API_KEY`: export it in your shell profile, or put it in a `.env` file in the directory you run your agent from (and make sure `.env` is gitignored):
+2. Store it privately as `FIRECRAWL_API_KEY`: export it in your shell profile, or put it in a `.env` file in the project folder you run your agent from, or in this skill's folder. Make sure `.env` is gitignored wherever it lives:
    ```
    FIRECRAWL_API_KEY=fc-...
    ```
    Or connect Firecrawl through MCP instead. Never paste the key into chat.
-3. Confirm it works (costs zero credits):
+3. Confirm it works (costs zero credits), from your project folder:
    ```bash
-   python3 scripts/fetch_page.py --check
+   python3 path/to/empco-screener/scripts/fetch_page.py --check
    ```
 
 ## What gets sent where

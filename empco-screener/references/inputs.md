@@ -4,10 +4,12 @@
 
 One URL per run. If the user wants several pages, run once per page — there is deliberately no crawl or batch mode. It was cut because it added failure modes (rate limits, keyword-prefilter recall gaps, subagent overhead) without improving accuracy or speed at this scale.
 
-**Credentials.** Fetching uses Firecrawl via `FIRECRAWL_API_KEY`, set as an environment variable or in a private `.env` file in the working directory. Never ask the user to paste the key into chat. If it isn't set, tell them they can get a free key (no credit card, 1,000 credits/month) at https://www.firecrawl.dev/app/api-keys, and offer the alternatives below in the meantime. To confirm a key works without spending credits:
+**Credentials.** Fetching uses Firecrawl via `FIRECRAWL_API_KEY`: an environment variable, or a private `.env` file in the user's project folder (or in this skill's folder). Never ask the user to paste the key into chat. If it isn't set, tell them they can get a free key (no credit card, 1,000 credits/month) at https://www.firecrawl.dev/app/api-keys, and offer the alternatives below in the meantime.
+
+Run the script from the user's working directory, calling it by its path inside this skill's folder — not after `cd`-ing into the skill — so a `.env` in their project is found. Below, `<skill>` stands for this skill's folder. To confirm a key works without spending credits:
 
 ```bash
-python3 scripts/fetch_page.py --check
+python3 <skill>/scripts/fetch_page.py --check
 ```
 
 If a Firecrawl MCP connection is available instead, use its scrape tool for the single URL (Markdown, main content only).
@@ -15,7 +17,7 @@ If a Firecrawl MCP connection is available instead, use its scrape tool for the 
 **Fetch.**
 
 ```bash
-python3 scripts/fetch_page.py "https://example.com/page" --output page.md
+python3 <skill>/scripts/fetch_page.py "https://example.com/page" --output page.md
 ```
 
 This makes exactly one Firecrawl request and writes the page to `page.md`: a short header with the URL, page title, and meta description, then the page's Markdown. The meta description is page copy search results and social previews show — screen it like any other text. It retries automatically on rate limits (429) and Firecrawl-side errors (5xx), which are transient. Any other error: stop and report it, don't retry.

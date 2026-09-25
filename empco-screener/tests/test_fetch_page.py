@@ -83,6 +83,20 @@ def test_render_includes_meta_description():
     assert text.rstrip().endswith("# Body")
 
 
+def test_dotenv_found_from_project_or_skill_folder():
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        project, skill = Path(tmp, "project"), Path(tmp, "skill")
+        project.mkdir(); skill.mkdir()
+        with mock.patch.object(fetch_page.Path, "cwd", lambda: project), \
+             mock.patch.object(fetch_page, "SKILL_DIR", skill):
+            assert fetch_page._find_dotenv() is None
+            (skill / ".env").write_text("FIRECRAWL_API_KEY=from-skill")
+            assert fetch_page._find_dotenv() == skill / ".env"
+            (project / ".env").write_text("FIRECRAWL_API_KEY=from-project")
+            assert fetch_page._find_dotenv() == project / ".env"
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_") and callable(fn):

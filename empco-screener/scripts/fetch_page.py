@@ -6,24 +6,38 @@ from pathlib import Path
 
 API_URL = "https://api.firecrawl.dev/v2/scrape"
 CREDIT_USAGE_URL = "https://api.firecrawl.dev/v2/team/credit-usage"
+SKILL_DIR = Path(__file__).resolve().parents[1]
+MISSING_KEY = (
+    "FIRECRAWL_API_KEY is not set. Get a free key (no credit card) at "
+    "https://www.firecrawl.dev/app/api-keys, then either export it in your shell or add "
+    "FIRECRAWL_API_KEY=fc-... to a .env file in your project folder (keep it gitignored)."
+)
 
 
-def _load_dotenv() -> None:
-    """Load KEY=VALUE pairs from the nearest .env (cwd or an ancestor); never overrides an already-set env var."""
+def _find_dotenv() -> Path | None:
+    """Nearest .env in the working directory or its ancestors, else one in this skill's folder."""
     d = Path.cwd()
     for _ in range(8):
-        f = d / ".env"
-        if f.exists():
-            for line in f.read_text(encoding="utf-8").splitlines():
-                line = line.strip()
-                if not line or line.startswith("#") or "=" not in line:
-                    continue
-                k, _, v = line.partition("=")
-                os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
-            return
+        if (d / ".env").exists():
+            return d / ".env"
         if d.parent == d:
             break
         d = d.parent
+    f = SKILL_DIR / ".env"
+    return f if f.exists() else None
+
+
+def _load_dotenv() -> None:
+    """Load KEY=VALUE pairs from the .env found by _find_dotenv; never overrides an already-set env var."""
+    f = _find_dotenv()
+    if not f:
+        return
+    for line in f.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, _, v = line.partition("=")
+        os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
 
 
 def check_key() -> dict:
@@ -31,11 +45,7 @@ def check_key() -> dict:
     _load_dotenv()
     key = os.getenv("FIRECRAWL_API_KEY")
     if not key:
-        raise RuntimeError(
-            "FIRECRAWL_API_KEY is not set. Get a free key (no credit card) at "
-            "https://www.firecrawl.dev/app/api-keys, then put it in a .env file here: "
-            'FIRECRAWL_API_KEY=fc-...'
-        )
+        raise RuntimeError(MISSING_KEY)
     req = urllib.request.Request(
         CREDIT_USAGE_URL,
         headers={"Authorization": f"Bearer {key}", "Accept": "application/json"},
@@ -53,11 +63,7 @@ def fetch(url: str, retries: int = 4) -> dict:
     _load_dotenv()
     key = os.getenv("FIRECRAWL_API_KEY")
     if not key:
-        raise RuntimeError(
-            "FIRECRAWL_API_KEY is not set. Get a free key (no credit card) at "
-            "https://www.firecrawl.dev/app/api-keys, then put it in a .env file here: "
-            'FIRECRAWL_API_KEY=fc-...'
-        )
+        raise RuntimeError(MISSING_KEY)
     p = urllib.parse.urlparse(url)
     if p.scheme not in {"http", "https"} or not p.netloc:
         raise ValueError(f"Invalid URL: {url}")
