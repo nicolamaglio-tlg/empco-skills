@@ -51,7 +51,7 @@ def build_zip(skill: str, files: list[Path]) -> Path:
     out = DIST / f"{skill}.zip"
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
         for p in files:
-            z.write(p, f"{skill}/{p.relative_to(ROOT / skill)}")
+            z.write(p, f"{skill}/{p.relative_to(ROOT / 'skills' / skill)}")
     with zipfile.ZipFile(out) as z:
         count = sum(n.endswith("/SKILL.md") or n == "SKILL.md" for n in z.namelist())
     if count != 1:
@@ -60,7 +60,7 @@ def build_zip(skill: str, files: list[Path]) -> Path:
 
 
 def build_single_file(skill: str, fields: dict, body: str, files: list[Path]) -> Path:
-    skill_dir = ROOT / skill
+    skill_dir = ROOT / "skills" / skill
     parts = [
         f"# {skill} — instructions for an AI assistant",
         "",
@@ -90,7 +90,7 @@ def build_single_file(skill: str, fields: dict, body: str, files: list[Path]) ->
 def main() -> int:
     DIST.mkdir(exist_ok=True)
     for skill in SKILLS:
-        skill_dir = ROOT / skill
+        skill_dir = ROOT / "skills" / skill
         fields, body = frontmatter((skill_dir / "SKILL.md").read_text(encoding="utf-8"))
         validate(skill, fields)
         files = skill_files(skill_dir)

@@ -1,0 +1,18 @@
+{
+  "name": "empco-skills",
+  "owner": {
+    "name": "The Landbanking Group",
+    "url": "https://www.thelandbankinggroup.com"
+  },
+  "metadata": {
+    "description": "Agent skills for EU EmpCo green claims: screen material for greenwashing risk and write lower-risk claims",
+    "version": "1.1.0"
+  },
+  "plugins": [
+    {
+      "name": "empco-skills",
+      "description": "Two skills for EU EmpCo green claims: empco-screener finds and risk-classifies environmental and social claims in a webpage, PDF, ad, or pasted copy; empco-claim-writer turns a fact, an aspiration, or a flagged claim into lower-risk directions with the evidence each one needs",
+      "source": "./"
+    }
+  ]
+}

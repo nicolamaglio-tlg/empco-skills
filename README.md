@@ -4,7 +4,7 @@
 
 Free [Agent Skills](https://agentskills.io) from The Landbanking Group for teams shipping product, marketing, and campaign copy under the EU's Empowering Consumers ("EmpCo") rules, which apply from **27 September 2026**. Find the risky environmental and social claims in a page, a PDF, or an ad — then turn them, or anything you'd like to say, into lower-risk directions with the evidence each one needs. Built for marketers, legal and compliance reviewers, and founders who want a fast first pass before copy ships, or before it goes to real legal review.
 
-Works in Claude, ChatGPT, Gemini, Copilot, and coding agents like Claude Code, Codex, and Cursor — see [Get started](#get-started).
+Works in Claude, ChatGPT, Gemini, Copilot, and coding agents like Claude Code, Codex, and Cursor — see [Installation](#installation).
 
 **Why free:** this is a taste of the claims work TLG does at full depth — multi-page, tied to real evidence, sign-off-ready. Run it, see if it's useful, and if you need more than a first pass, see [Need more?](#need-more) below.
 
@@ -12,47 +12,110 @@ Works in Claude, ChatGPT, Gemini, Copilot, and coding agents like Claude Code, C
 
 | Skill | What it does | Setup |
 |---|---|---|
-| [empco-screener](empco-screener/) | Finds and risk-classifies the claims in existing material — a webpage, PDF, ad or social post, pasted copy — and returns a claims register. | None. For webpages, attach a PDF or screenshots, or add a free Firecrawl key in a coding agent |
-| [empco-claim-writer](empco-claim-writer/) | Turns a fact, an aspiration, or a flagged claim into two to four lower-risk directions, each with the evidence it needs, plus a data checklist for your teams. | None |
+| [empco-screener](skills/empco-screener/) | Finds and risk-classifies the claims in existing material — a webpage, PDF, ad or social post, pasted copy — and returns a claims register. | None. For webpages, attach a PDF or screenshots, or add a free Firecrawl key in a coding agent |
+| [empco-claim-writer](skills/empco-claim-writer/) | Turns a fact, an aspiration, or a flagged claim into two to four lower-risk directions, each with the evidence it needs, plus a data checklist for your teams. | None |
 
-## Get started
+## Installation
 
-Pick where you use AI. Each option takes about a minute, and none needs an account beyond the one you already have.
+**Easiest:** give your AI agent the repo link and ask it to install the skills.
 
-| You use | Do this |
-|---|---|
-| **Claude** (claude.ai or the desktop app) | [Upload two zips](#claude) |
-| **ChatGPT, Gemini, Copilot, or any other chat app** | [Attach an instruction file](#any-other-chat-app) |
-| **Claude Code, Codex, Cursor, or another coding agent** | [Run one command](#coding-agents) |
-
-### Claude
-
-1. Download both skills: **[empco-screener.zip](https://github.com/nicolamaglio-tlg/empco-skills/releases/latest/download/empco-screener.zip)** and **[empco-claim-writer.zip](https://github.com/nicolamaglio-tlg/empco-skills/releases/latest/download/empco-claim-writer.zip)**.
-2. In Claude, go to **Customize → Skills** and upload each zip as it is — don't unzip it.
-3. Ask: *"Is 'our packaging is 100% eco-friendly' OK under EmpCo?"*
-
-Use the links above, not GitHub's green **Code → Download ZIP** button: that bundles both skills into one zip, which Claude rejects. If you don't see Skills, check that code execution is turned on in your Claude settings.
-
-### Any other chat app
-
-1. Download the instruction files: **[empco-screener.md](https://github.com/nicolamaglio-tlg/empco-skills/releases/latest/download/empco-screener.md)** (checks existing material) and **[empco-claim-writer.md](https://github.com/nicolamaglio-tlg/empco-skills/releases/latest/download/empco-claim-writer.md)** (helps you write claims).
-2. Start a chat, attach the file you need, and ask: *"Follow the attached instructions. Is 'our packaging is 100% eco-friendly' OK under EmpCo?"*
-3. Using it often? Add the files to a project, custom GPT, or Gem so they're always there.
-
-### Coding agents
-
-Using [npx skills](https://github.com/vercel-labs/skills):
-
-```bash
-npx skills add nicolamaglio-tlg/empco-skills
+```
+Install the skills from https://github.com/nicolamaglio-tlg/empco-skills
 ```
 
-It detects your agent and installs both skills in the right place. For one skill only, add `--skill empco-claim-writer`. Or copy them by hand:
+Coding agents like Claude Code, Codex, and Cursor can do the rest. Their instructions are in [AGENTS.md](AGENTS.md). Using a chat app like Claude.ai or ChatGPT instead? Jump to [Option 7](#option-7-claudeai) or [Option 8](#option-8-any-other-chat-app).
+
+### Option 1: CLI install (recommended)
+
+Use [npx skills](https://github.com/vercel-labs/skills) to install skills directly:
+
+```bash
+# Install both skills
+npx skills add nicolamaglio-tlg/empco-skills
+
+# Install one skill
+npx skills add nicolamaglio-tlg/empco-skills --skill empco-claim-writer
+
+# List available skills
+npx skills add nicolamaglio-tlg/empco-skills --list
+```
+
+The CLI detects which agents you have installed and asks where to install. For Claude Code it installs into `.claude/skills/`; universal agents share `.agents/skills/`.
+
+> [!TIP]
+> If you run the command from **inside** an agent session (e.g., asking Claude Code to install the skills for you), the CLI runs non-interactively and may only install to the universal `.agents/skills/` directory, which Claude Code does not read. Pass the agent explicitly:
+>
+> ```bash
+> npx skills add nicolamaglio-tlg/empco-skills -a claude-code
+> ```
+
+### Option 2: Claude Code plugin
+
+Install via Claude Code's built-in plugin system:
+
+```bash
+# Add the marketplace
+/plugin marketplace add nicolamaglio-tlg/empco-skills
+
+# Install both skills
+/plugin install empco-skills
+```
+
+### Option 3: Clone and copy
+
+Clone the repo and copy the skills folder:
 
 ```bash
 git clone https://github.com/nicolamaglio-tlg/empco-skills.git
-cp -r empco-skills/empco-screener empco-skills/empco-claim-writer ~/.claude/skills/
+cp -r empco-skills/skills/* .agents/skills/
 ```
+
+For Claude Code, copy into `.claude/skills/` instead (or `~/.claude/skills/` for all projects).
+
+### Option 4: Git submodule
+
+Add as a submodule for easy updates:
+
+```bash
+git submodule add https://github.com/nicolamaglio-tlg/empco-skills.git .agents/empco-skills
+```
+
+Then reference skills from `.agents/empco-skills/skills/`.
+
+### Option 5: Fork and customize
+
+1. Fork this repository
+2. Customize the skills for your needs — for example, add your brand's evidence sources or house style to the claim writer
+3. Clone your fork into your projects
+
+### Option 6: SkillKit (multi-agent)
+
+Use [SkillKit](https://github.com/rohitg00/skillkit) to install skills across multiple AI agents (Claude Code, Cursor, Copilot, etc.):
+
+```bash
+# Install both skills
+npx skillkit install nicolamaglio-tlg/empco-skills
+
+# Install one skill
+npx skillkit install nicolamaglio-tlg/empco-skills --skill empco-claim-writer
+```
+
+### Option 7: Claude.ai
+
+For claude.ai and the Claude desktop app:
+
+1. Download both skills: **[empco-screener.zip](https://github.com/nicolamaglio-tlg/empco-skills/releases/latest/download/empco-screener.zip)** and **[empco-claim-writer.zip](https://github.com/nicolamaglio-tlg/empco-skills/releases/latest/download/empco-claim-writer.zip)**.
+2. In Claude, go to **Customize → Skills** and upload each zip as it is — don't unzip it.
+
+Use these links, not GitHub's green **Code → Download ZIP** button: that bundles both skills into one zip, which Claude rejects. If you don't see Skills, check that code execution is turned on in your Claude settings.
+
+### Option 8: Any other chat app
+
+For ChatGPT, Gemini, Copilot, and anything else that accepts a file:
+
+1. Download **[empco-screener.md](https://github.com/nicolamaglio-tlg/empco-skills/releases/latest/download/empco-screener.md)** (checks existing material) or **[empco-claim-writer.md](https://github.com/nicolamaglio-tlg/empco-skills/releases/latest/download/empco-claim-writer.md)** (helps you write claims).
+2. Attach it to a chat and ask: *"Follow the attached instructions. Is 'our packaging is 100% eco-friendly' OK under EmpCo?"*
+3. Using it often? Add the files to a project, custom GPT, or Gem so they're always there.
 
 ## Screening live webpages
 

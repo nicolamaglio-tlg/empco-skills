@@ -26,7 +26,7 @@ def main() -> int:
     for name, skills in TARGETS.items():
         content = expected(name)
         for skill in skills:
-            dest = ROOT / skill / "references" / name
+            dest = ROOT / "skills" / skill / "references" / name
             if dest.exists() and dest.read_text(encoding="utf-8") == content:
                 continue
             if check:

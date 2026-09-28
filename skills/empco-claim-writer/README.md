@@ -1,6 +1,6 @@
 # EmpCo Claim Writer
 
-Part of [EmpCo Skills](../README.md) — free agent skills from The Landbanking Group. See the repo root for the pitch and install options; this file covers how the skill is put together.
+Part of [EmpCo Skills](../../README.md) — free agent skills from The Landbanking Group. See the repo root for the pitch and install options; this file covers how the skill is put together.
 
 ## What it does
 
@@ -27,4 +27,4 @@ empco-claim-writer/
 
 ## Disclaimer
 
-Drafts for legal review — not legal advice, not cleared copy. See [LICENSE](../LICENSE).
+Drafts for legal review — not legal advice, not cleared copy. See [LICENSE](../../LICENSE).
