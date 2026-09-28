@@ -12,7 +12,7 @@ Works in Claude, ChatGPT, Gemini, Copilot, and coding agents like Claude Code, C
 
 | Skill | What it does | Setup |
 |---|---|---|
-| [empco-screener](skills/empco-screener/) | Finds and risk-classifies the claims in existing material — a webpage, PDF, ad or social post, pasted copy — and returns a claims register. | None. For webpages, attach a PDF or screenshots, or add a free Firecrawl key in a coding agent |
+| [empco-screener](skills/empco-screener/) | Finds and risk-classifies the claims in existing material — a webpage, PDF, ad or social post, pasted copy — and returns a claims register. | None. A free Firecrawl key is optional, for JavaScript-heavy or protected webpages |
 | [empco-claim-writer](skills/empco-claim-writer/) | Turns a fact, an aspiration, or a flagged claim into two to four lower-risk directions, each with the evidence it needs, plus a data checklist for your teams. | None |
 
 ## Installation
@@ -121,11 +121,9 @@ For ChatGPT, Gemini, Copilot, and anything else that accepts a file:
 
 ## Screening live webpages
 
-Everything above works with no extra setup. For a webpage, the simplest route works anywhere:
+Paste a URL and the screener fetches the page itself — no setup. It uses the agent's own tools: its fetch script where it can run commands, or its web browsing tool in a chat app. If the page can't be fetched, it asks you for a PDF (in your browser: Print → Save as PDF) or screenshots instead. Screenshots also let it check the imagery.
 
-- **Save the page as a PDF** (in your browser: Print → Save as PDF) or **take screenshots**, and attach them. Screenshots also let the screener check the imagery.
-
-In a coding agent, the screener can also fetch a URL itself with a free [Firecrawl](https://www.firecrawl.dev/app/api-keys) key (no credit card, 1,000 pages/month):
+**Optional: Firecrawl.** Some pages load most of their content with JavaScript, or block automated fetches. For those, a free [Firecrawl](https://www.firecrawl.dev/app/api-keys) key (no credit card, 1,000 pages/month) gets better results in coding agents:
 
 1. Get a key at https://www.firecrawl.dev/app/api-keys
 2. Add `FIRECRAWL_API_KEY=fc-...` to your shell environment or a gitignored `.env` in your project folder. Never paste it into chat.

@@ -1,7 +1,7 @@
 {
   "name": "empco-skills",
   "description": "Agent skills for EU EmpCo green claims: screen material for greenwashing risk and write lower-risk claims",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "The Landbanking Group"
   },

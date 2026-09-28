@@ -13,17 +13,71 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import fetch_page  # noqa: E402
 
 
-def test_missing_api_key():
-    with mock.patch.dict(os.environ, {}, clear=True), mock.patch.object(fetch_page, "_load_dotenv", lambda: None):
+class _FakeResponse(io.BytesIO):
+    def __init__(self, body: bytes, ctype: str = "text/html; charset=utf-8"):
+        super().__init__(body)
+        from email.message import Message
+        self.headers = Message()
+        self.headers["Content-Type"] = ctype
+
+
+PAGE = b"""<html><head><title>EcoRun &amp; Co</title>
+<meta name="description" content="Our greenest shoe ever.">
+<script>var tracking = "Made with recycled materials";</script><style>.x{}</style></head>
+<body><nav>Home</nav><h1>EcoRun 2</h1><p>Made with <b>recycled</b> materials.</p>
+<img src="a.png" alt="Certified Planet Friendly badge"><ul><li>100% carbon neutral</li></ul>
+""" + b"<p>" + b"Filler copy. " * 60 + b"</p></body></html>"
+
+
+def test_no_key_falls_back_to_plain_fetch():
+    seen = {}
+
+    def fake_urlopen(req, timeout=30):
+        seen["url"], seen["ua"] = req.full_url, req.get_header("User-agent")
+        return _FakeResponse(PAGE)
+
+    with mock.patch.dict(os.environ, {}, clear=True), mock.patch.object(fetch_page, "_load_dotenv", lambda: None), \
+         mock.patch.object(fetch_page.urllib.request, "urlopen", fake_urlopen):
+        r = fetch_page.fetch("https://example.com/page")
+    assert seen["url"] == "https://example.com/page" and "empco-screener" in seen["ua"]
+    assert r["method"].startswith("plain HTTP")
+    assert r["title"] == "EcoRun & Co" and r["description"] == "Our greenest shoe ever."
+    assert "# EcoRun 2" in r["markdown"] and "Made with recycled materials." in r["markdown"]
+    assert "[image: Certified Planet Friendly badge]" in r["markdown"] and "100% carbon neutral" in r["markdown"]
+    assert "tracking" not in r["markdown"], "script contents must be dropped"
+    assert len(r["warnings"]) == 1, "a normal page gets only the JavaScript caveat"
+
+
+def test_thin_page_warns_about_javascript():
+    shell = b"<html><head><title>App</title></head><body><div id='root'></div></body></html>"
+    with mock.patch.dict(os.environ, {}, clear=True), mock.patch.object(fetch_page, "_load_dotenv", lambda: None), \
+         mock.patch.object(fetch_page.urllib.request, "urlopen", lambda req, timeout=30: _FakeResponse(shell)):
+        r = fetch_page.fetch("https://example.com/app")
+    assert any("Very little text" in w for w in r["warnings"])
+    assert "Warning: Very little text" in fetch_page.render(r)
+
+
+def test_plain_fetch_blocked_says_not_to_bypass():
+    def blocked(req, timeout=30):
+        raise urllib.error.HTTPError(req.full_url, 403, "Forbidden", {}, io.BytesIO(b""))
+
+    with mock.patch.dict(os.environ, {}, clear=True), mock.patch.object(fetch_page, "_load_dotenv", lambda: None), \
+         mock.patch.object(fetch_page.urllib.request, "urlopen", blocked):
         try:
             fetch_page.fetch("https://example.com/page")
             raise AssertionError("expected RuntimeError")
         except RuntimeError as e:
-            assert "FIRECRAWL_API_KEY" in str(e)
+            assert "Don't try to get around it" in str(e) and "PDF" in str(e)
+
+
+def test_check_without_key_is_ok(capsys=None):
+    with mock.patch.dict(os.environ, {}, clear=True), mock.patch.object(fetch_page, "_load_dotenv", lambda: None), \
+         mock.patch.object(sys, "argv", ["fetch_page.py", "--check"]):
+        assert fetch_page.main() == 0
 
 
 def test_invalid_url():
-    with mock.patch.dict(os.environ, {"FIRECRAWL_API_KEY": "test-key"}):
+    with mock.patch.dict(os.environ, {}, clear=True), mock.patch.object(fetch_page, "_load_dotenv", lambda: None):
         try:
             fetch_page.fetch("not-a-url")
             raise AssertionError("expected ValueError")

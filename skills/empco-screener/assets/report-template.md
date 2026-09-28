@@ -28,7 +28,7 @@ If flagged, offer lower-risk directions via empco-claim-writer.
 ### Input
 
 - Item: URL / file name / "pasted copy"
-- Type and how it was read: e.g. Firecrawl fetch, PDF read natively (pages 1–12), image reviewed directly
+- Type and how it was read: e.g. fetch script via Firecrawl or plain HTTP, the agent's web tool, PDF read natively (pages 1–12), image reviewed directly
 - Audience:
 - Failures or retries:
 

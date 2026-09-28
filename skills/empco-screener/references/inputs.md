@@ -2,33 +2,34 @@
 
 ## Webpage
 
-Can't run scripts (for example, in a chat app)? Skip to **Alternatives when the page can't be fetched** below.
-
 One URL per run. If the user wants several pages, run once per page — there is deliberately no crawl or batch mode. It was cut because it added failure modes (rate limits, keyword-prefilter recall gaps, subagent overhead) without improving accuracy or speed at this scale.
 
-**Credentials.** Fetching uses Firecrawl via `FIRECRAWL_API_KEY`: an environment variable, or a private `.env` file in the user's project folder (or in this skill's folder). Never ask the user to paste the key into chat. If it isn't set, tell them they can get a free key (no credit card, 1,000 credits/month) at https://www.firecrawl.dev/app/api-keys, and offer the alternatives below in the meantime.
+Get the page's text the first way that works, in this order, and say in the report which one you used.
 
-Run the script from the user's working directory, calling it by its path inside this skill's folder — not after `cd`-ing into the skill — so a `.env` in their project is found. Below, `<skill>` stands for this skill's folder. To confirm a key works without spending credits:
+1. **The fetch script**, if you can run commands. Run it from the user's working directory, calling it by its path inside this skill's folder (below, `<skill>`), so a `.env` in their project is found:
+
+   ```bash
+   python3 <skill>/scripts/fetch_page.py "https://example.com/page" --output page.md
+   ```
+
+   No setup is needed. It uses Firecrawl if a `FIRECRAWL_API_KEY` is set and otherwise fetches the page over plain HTTP. Either way it writes `page.md`: a header with the URL, how it was fetched, the page title, the meta description, and any warnings, then the page text. The meta description is copy that search results and social previews show — screen it like any other text.
+
+   - **Read the warnings.** A plain fetch can miss content that loads with JavaScript (carousels, tabs, reviews). If the header says very little text came back, don't screen from it; go to option 2.
+   - **Errors.** With Firecrawl, rate limits and Firecrawl-side errors are retried automatically. Any other error: stop and report it, don't retry.
+
+2. **Your own web tool**, if you can't run the script or it came back thin, and you have a tool that reads webpages (a web fetch or browsing tool, or a Firecrawl MCP connection). Ask it for the page's full text, verbatim. Some web tools return a summary rather than the page. You can't quote exact wording from a summary, so if that's all you get, say so and treat the wording as unverified, or go to option 3.
+
+3. **Ask the user** for a PDF of the page (in a browser: Print → Save as PDF), screenshots, or the copy pasted in, and continue with that input type. Screenshots have a bonus: they let you review the imagery too.
+
+**Bot protection.** A 403, or a "security issue identified"/bot-detection page instead of real content, means the site blocked the fetch — this can happen even to the site's owner. Don't try to get past it: no other tools, disguised requests, or workarounds. Report it and go straight to option 3. If the user owns the site, the lasting fix is allowlisting the crawler in their WAF.
+
+**Firecrawl is optional.** It handles JavaScript-heavy and protected pages better than a plain fetch. When a page needs it, you can tell the user a free key (no credit card, 1,000 pages/month) is at https://www.firecrawl.dev/app/api-keys, set as `FIRECRAWL_API_KEY` in their environment or a gitignored `.env` in their project folder. Never ask them to paste the key into chat. To confirm a key works, at no cost:
 
 ```bash
 python3 <skill>/scripts/fetch_page.py --check
 ```
 
-If a Firecrawl MCP connection is available instead, use its scrape tool for the single URL (Markdown, main content only).
-
-**Fetch.**
-
-```bash
-python3 <skill>/scripts/fetch_page.py "https://example.com/page" --output page.md
-```
-
-This makes exactly one Firecrawl request and writes the page to `page.md`: a short header with the URL, page title, and meta description, then the page's Markdown. The meta description is page copy search results and social previews show — screen it like any other text. It retries automatically on rate limits (429) and Firecrawl-side errors (5xx), which are transient. Any other error: stop and report it, don't retry.
-
-**Bot protection.** A 403, or a "security issue identified"/bot-detection page instead of real content, means the site's WAF (Akamai Bot Manager, Cloudflare Bot Fight Mode, etc.) blocked the fetch — this can happen even to the site's owner. Report it. Do not try to route around it. The fix on the owner's side is allowlisting Firecrawl; the fix right now is the alternatives below.
-
-**Alternatives when the page can't be fetched** — no key, a block, or an environment where the script can't run or reach the network: ask the user to save the page as a PDF, upload screenshots, or paste the copy, and continue with that input type. Screenshots have a bonus: they let you review the imagery too.
-
-**What a fetch covers.** Markdown captures text and image alt text, not the images themselves. Say that imagery wasn't reviewed unless the user also provides screenshots.
+**What a fetch covers.** Any fetch captures text and image alt text, not the images themselves. Say that imagery wasn't reviewed unless the user also provides screenshots.
 
 **Fetch artifacts.**
 

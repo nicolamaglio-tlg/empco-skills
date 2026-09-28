@@ -2,9 +2,9 @@
 
 **Text, PDF, and image input need no setup.** Paste a claim, upload a PDF or an ad, and go.
 
-Only **live webpage** input needs Firecrawl.
+**Webpages need no setup either.** The screener fetches them over plain HTTP, or with the agent's own web tool. Firecrawl is optional: it handles pages that load their content with JavaScript, or that block plain fetches.
 
-## Firecrawl (webpages only)
+## Firecrawl (optional)
 
 1. Get a free API key at https://www.firecrawl.dev/app/api-keys — no credit card, 1,000 credits/month on the free plan. Each page fetched uses one credit.
 2. Store it privately as `FIRECRAWL_API_KEY`: export it in your shell profile, or put it in a `.env` file in the project folder you run your agent from, or in this skill's folder. Make sure `.env` is gitignored wherever it lives:
@@ -19,7 +19,7 @@ Only **live webpage** input needs Firecrawl.
 
 ## What gets sent where
 
-Webpage fetches send the URL to Firecrawl, which retrieves the public page. Don't fetch confidential or authenticated pages. Files and text you give the agent are handled by your agent as usual; this skill sends them nowhere else.
+A webpage fetch requests the public page directly, identifying itself as `empco-screener`; with a Firecrawl key, the URL goes to Firecrawl, which retrieves the page. Don't fetch confidential or authenticated pages. Files and text you give the agent are handled by your agent as usual; this skill sends them nowhere else.
 
 ## Tests
 

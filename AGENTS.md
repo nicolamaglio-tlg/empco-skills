@@ -29,7 +29,7 @@ npx skills add nicolamaglio-tlg/empco-skills -a <your-agent> -y
 
 1. Check that both skill folders exist where you installed them. If the skills don't show up in your session, tell the user to start a new one.
 2. Suggest a first prompt: *"Is 'our packaging is 100% eco-friendly' OK under EmpCo?"*
-3. Mention that everything works without setup except fetching live webpages. For that, the user can attach a PDF or screenshots of the page, or add a free Firecrawl key (https://www.firecrawl.dev/app/api-keys) as `FIRECRAWL_API_KEY` in their environment or a gitignored `.env`. Never ask the user to paste the key into chat.
+3. Mention that everything works without setup, including webpages: the screener fetches them itself. A free Firecrawl key (https://www.firecrawl.dev/app/api-keys), set as `FIRECRAWL_API_KEY` in their environment or a gitignored `.env`, is optional and helps with JavaScript-heavy or protected pages. Never ask the user to paste the key into chat.
 
 ## Repository structure
 

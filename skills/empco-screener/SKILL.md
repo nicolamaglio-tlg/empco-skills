@@ -1,7 +1,7 @@
 ---
 name: empco-screener
 description: Find and risk-classify the environmental and social claims in existing material under the EU EmpCo framework (Empowering Consumers Directive 2024/825), producing a claims register. Use to check, audit, or review anything for greenwashing risk, whatever the format — a live webpage URL, a PDF (report, brochure, packaging artwork), an ad or social post (image or text), pasted copy, or a draft before publication. Also use when the user asks whether something is greenwashing or "OK under EmpCo". To draft new claims or rework flagged ones, use empco-claim-writer instead.
-compatibility: No setup for text, PDF, or image input. Live webpage input needs a free Firecrawl API key (FIRECRAWL_API_KEY) or a Firecrawl MCP connection.
+compatibility: No setup needed. Webpages are fetched with the agent's own tools; a free Firecrawl API key (FIRECRAWL_API_KEY) is optional and improves results on JavaScript-heavy or protected pages.
 metadata:
   author: The Landbanking Group
   version: "1.0.0"

@@ -8,7 +8,7 @@ Hand it existing material and it returns a claims register: every environmental 
 
 | Input | How it's read | Setup |
 | --- | --- | --- |
-| Webpage URL | Firecrawl, one page per run | Free Firecrawl key |
+| Webpage URL | Fetched by the agent, one page per run — Firecrawl if a key is set | None (Firecrawl key optional) |
 | Pasted text or a single claim | Directly | None |
 | PDF — report, brochure, packaging | Agent's file reader | None |
 | Image — ad, social post, packaging photo | Agent looks at it, text and visuals | None |
@@ -23,7 +23,7 @@ empco-screener/
     inputs.md                  how to read each input type
     empco-screening.md         the rubric (synced from shared/ — don't edit here)
   assets/report-template.md    quick-check and full-register formats
-  scripts/fetch_page.py        single-page Firecrawl fetch (webpage input only)
+  scripts/fetch_page.py        single-page fetch: Firecrawl with a key, plain HTTP without
   tests/test_fetch_page.py     smoke tests, no network
 ```
 
@@ -36,7 +36,7 @@ The agent loads `SKILL.md` first and pulls in the reference files only when the 
 - **Screens, doesn't rewrite.** Rewriting is a different job with a different user; it lives in empco-claim-writer.
 - **Honest coverage.** Every report says what was actually reviewed — text only or visuals too, which pages — and never implies more.
 
-See [SETUP.md](SETUP.md) for Firecrawl and tests.
+See [SETUP.md](SETUP.md) for the optional Firecrawl key and tests.
 
 ## Disclaimer
 
