@@ -1,4 +1,5 @@
-__pycache__/
 *.pyc
 .env
+__pycache__/
+dist/
 page.md
