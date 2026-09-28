@@ -23,7 +23,9 @@ Works in Claude, ChatGPT, Gemini, Copilot, and coding agents like Claude Code, C
 Install the skills from https://github.com/nicolamaglio-tlg/empco-skills
 ```
 
-Coding agents like Claude Code, Codex, and Cursor can do the rest. Their instructions are in [AGENTS.md](AGENTS.md). Using a chat app like Claude.ai or ChatGPT instead? Jump to [Option 7](#option-7-claudeai) or [Option 8](#option-8-any-other-chat-app).
+Coding agents like Claude Code, Codex, and Cursor can do the rest.
+
+> **AI agents installing for a user:** run `npx skills add nicolamaglio-tlg/empco-skills -a <your-agent> -y` (e.g. `-a claude-code`), from the user's project folder. Don't skip `-a`. Full steps in [AGENTS.md](AGENTS.md). Using a chat app like Claude.ai or ChatGPT instead? Jump to [Option 7](#option-7-claudeai) or [Option 8](#option-8-any-other-chat-app).
 
 ### Option 1: CLI install (recommended)
 
