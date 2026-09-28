@@ -2,6 +2,8 @@
 
 ## Webpage
 
+Can't run scripts (for example, in a chat app)? Skip to **Alternatives when the page can't be fetched** below.
+
 One URL per run. If the user wants several pages, run once per page — there is deliberately no crawl or batch mode. It was cut because it added failure modes (rate limits, keyword-prefilter recall gaps, subagent overhead) without improving accuracy or speed at this scale.
 
 **Credentials.** Fetching uses Firecrawl via `FIRECRAWL_API_KEY`: an environment variable, or a private `.env` file in the user's project folder (or in this skill's folder). Never ask the user to paste the key into chat. If it isn't set, tell them they can get a free key (no credit card, 1,000 credits/month) at https://www.firecrawl.dev/app/api-keys, and offer the alternatives below in the meantime.

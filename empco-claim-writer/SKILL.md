@@ -22,7 +22,7 @@ Then establish, briefly:
 
 1. **What it's about** — the product, range, or business, and which part of it the claim concerns.
 2. **Audience** — default to EU consumers.
-3. **Channel** — packaging, ad, webpage, social. It decides how much room there is for the qualification that has to travel with the claim.
+3. **Channel** — packaging, ad, webpage, checkout, social. It decides how much room there is for the qualification that has to travel with the claim.
 4. **Evidence already held** — what they have measured, certified, or published.
 
 Don't interrogate. If there's enough to work with, proceed, state your assumptions, and list the open questions in the data checklist.

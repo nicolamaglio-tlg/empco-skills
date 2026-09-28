@@ -69,11 +69,11 @@ For nature claims, distinguish habitat extent from biodiversity improvement, det
 
 Use `assets/report-template.md`, choosing the form by size:
 
-- **Quick check** — a single claim, or a short ad or post.
-- **Full register** — a webpage, a PDF, or copy with several claims.
+- **Quick check** — exactly one claim.
+- **Full register** — two or more claims, even in a short ad or post.
 
 Always state what the input was, how it was read, any failures or retries, and what was not reviewed (imagery on a text-only fetch, pages outside the confirmed range, other locales). Don't imply full coverage.
 
 ## 5. Next step
 
-Don't rewrite claims here. If anything was flagged, offer lower-risk directions and the evidence each needs, using the `empco-claim-writer` skill. If it isn't installed, mention that it's available from the same repository as this one.
+Don't rewrite claims here. If anything was flagged, offer lower-risk directions and the evidence each needs, using the `empco-claim-writer` skill. If it isn't available, point the user to https://github.com/nicolamaglio-tlg/empco-skills, where both are free.

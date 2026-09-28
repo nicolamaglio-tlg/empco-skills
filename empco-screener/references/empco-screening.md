@@ -44,6 +44,8 @@ Information the law requires — packaging disposal and sorting instructions, re
 
 Use this bucket when the claim might be fine but the reviewed material doesn't show enough to tell — the substantiation, scheme, or scope sits somewhere you haven't seen.
 
+That includes claims that would be a prohibited pattern only under facts you can't see. "Made with recycled materials" is a whole-product overreach if only the laces are recycled and fine if the whole upper is: bucket it here, say what fact decides it, and set priority by how likely and how serious the bad case is.
+
 ## Evidence principles
 
 - The claim cannot be broader than the evidence.

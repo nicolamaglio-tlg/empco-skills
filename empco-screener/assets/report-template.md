@@ -1,6 +1,6 @@
 # Report templates
 
-Pick the form by size: **quick check** for a single claim or a short ad/post, **full register** for a webpage, a PDF, or copy with several claims.
+Pick the form by the number of claims: **quick check** when there's exactly one; **full register** when there are two or more, even in a short ad or post.
 
 ---
 

@@ -68,12 +68,13 @@ def build_single_file(skill: str, fields: dict, body: str, files: list[Path]) ->
         f"{fields['description']}",
         ">",
         "> This single file contains the whole skill. Where the instructions mention a file such as "
-        "`references/…` or `assets/…`, its full text is included below under that file's name. "
-        "If you can't run scripts, skip any script step and use the alternative the instructions give.",
+        "`references/…` or `assets/…`, its full text is included below under that file's name."
+        + (" If you can't run scripts, skip any script step and use the alternative the instructions give."
+           if (skill_dir / "scripts").exists() else ""),
         "",
         f"<!-- Built from {REPO_URL} — first-pass screening, not legal advice. -->",
         "",
-        body.strip(),
+        re.sub(r"Read `((?:references|assets)/[^`]+)`", r"Use the `\1` section below", body.strip()),
     ]
     for p in files:
         rel = p.relative_to(skill_dir).as_posix()

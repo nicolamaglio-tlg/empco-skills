@@ -4,7 +4,7 @@
 
 ## Starting point
 
-- Input: flagged claim / fact / aspiration — "exact wording"
+- Input: flagged claim, fact, or aspiration — often a claim plus the facts behind it; quote each exactly
 - About: product, range, or business — and which part of it
 - Audience and channel:
 - Evidence already held:
