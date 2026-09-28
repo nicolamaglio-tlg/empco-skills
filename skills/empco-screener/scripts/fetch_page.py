@@ -180,8 +180,9 @@ def plain_fetch(url: str) -> dict:
             raw = r.read()
     except urllib.error.HTTPError as e:
         if e.code in {401, 403, 429, 503}:
-            raise RuntimeError(f"HTTP {e.code}: the site refused a plain fetch, probably bot protection. "
-                               f"Don't try to get around it. {FALLBACK_HINT}") from e
+            raise RuntimeError(f"HTTP {e.code}: the site refused the fetch, probably bot protection. "
+                               "Don't try to get around it with other tools or requests: ask the user for a PDF "
+                               "of the page, screenshots, or the copy.") from e
         raise RuntimeError(f"HTTP {e.code} fetching the page.") from e
     except urllib.error.URLError as e:
         raise RuntimeError(f"Couldn't reach the page ({e.reason}). {FALLBACK_HINT}") from e

@@ -68,6 +68,7 @@ def test_plain_fetch_blocked_says_not_to_bypass():
             raise AssertionError("expected RuntimeError")
         except RuntimeError as e:
             assert "Don't try to get around it" in str(e) and "PDF" in str(e)
+            assert "web tool" not in str(e), "a block must not suggest trying another tool"
 
 
 def test_check_without_key_is_ok(capsys=None):
